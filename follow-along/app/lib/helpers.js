@@ -21,12 +21,33 @@ helpers.hash = function(str) {
 
 // Parse a JSON string to an object in all cases, without throwing
 helpers.parseJsonToObject = function(str) {
-  try {
-    const obj = JSON.parse(str);
-    return obj;
-  } catch (error) {
-    return {};
-  }
+	try {
+		const obj = JSON.parse(str);
+		return obj;
+	} catch (error) {
+		return {};
+	}
+};
+
+// Create a string of random aplhanumeric characters, of a given length
+helpers.createRandomString = function(strLength) {
+	strLength = typeof strLength === 'number' && strLength > 0 ? strLength : false;
+	if (strLength) {
+		// Define all the possible chars that could go into a string
+		const possibleChars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+		var str = '';
+		for (let i = 1; i <= strLength; i++) {
+			// Get random char from possible chars
+			const randomChar = possibleChars.charAt(Math.floor(Math.random() * possibleChars.length));
+			// Append this character to the final string
+			str += randomChar;
+		}
+
+		// Return the final string
+		return str;
+	} else {
+		return false;
+	}
 };
 
 // Export the module
