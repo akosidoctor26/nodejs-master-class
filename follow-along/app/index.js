@@ -12,6 +12,11 @@ const config = require('./lib/config');
 const handlers = require('./lib/handlers');
 const helpers = require('./lib/helpers');
 
+// @TODO: GET RID OF THIS
+helpers.sendTwilioSms('3105693736', 'I have a news', function(err) {
+	console.log('this was the error', err);
+});
+
 // Instantiate the HTTP server
 const httpServer = http.createServer(function(req, res) {
 	unifiedServer(req, res);
@@ -77,7 +82,7 @@ const unifiedServer = function(req, res) {
 			headers,
 			payload: helpers.parseJsonToObject(buffer)
 		};
-		console.log('data', data);
+		// console.log('data', data);
 		// Route the request to the handler specified in the router
 		chosenHandler(data, function(statusCode, payload) {
 			// Use the status code called back by the handler, or default to 200
@@ -104,7 +109,7 @@ const unifiedServer = function(req, res) {
 		//   + trimmedPath + ' with method: '
 		//   + method + ' and with these query string parameters', queryStringObject);
 		// console.log('Headers', headers);
-		console.log('Payload', buffer);
+		// console.log('Payload', buffer);
 	});
 };
 
@@ -112,5 +117,6 @@ const unifiedServer = function(req, res) {
 const router = {
 	ping: handlers.ping,
 	users: handlers.users,
-	tokens: handlers.tokens
+	tokens: handlers.tokens,
+	checks: handlers.checks
 };
